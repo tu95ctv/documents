@@ -1,0 +1,18 @@
+query getAllTags(
+  $folderId:Int
+){
+  allTagCategories(
+    folderId:$folderId
+  ){
+    id
+    key:id
+    name
+    label:name
+    children:tags {
+      id
+      key:id
+      name
+      label:name
+    }
+  }
+}

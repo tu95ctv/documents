@@ -1,0 +1,26 @@
+query getAllDocuments(
+  $folderId:Int,
+  $tagIds: [Int]
+){
+  allDocuments(
+    folderId:$folderId,
+    tagIds: $tagIds
+  ){
+    id
+    name
+ownerId{
+      id
+      name
+    }
+    createDate
+    tags{
+      id
+      name
+    }
+    folderId {
+      id
+      name
+    }
+    downloadUrl
+  }
+}
