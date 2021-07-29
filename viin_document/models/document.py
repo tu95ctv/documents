@@ -32,10 +32,10 @@ class Document(models.Model):
     active = fields.Boolean(default=True, string="Active")
     thumbnail = fields.Binary(readonly=1, store=True, attachment=True, compute='_compute_thumbnail')
 
-    url = fields.Char('URL', index=True, size=1024, tracking=True) #rt
+    url = fields.Char('URL', index=True, size=1024, tracking=True) 
     type = fields.Selection([('url', 'URL'), ('binary', 'File'), ('empty', 'Request')],
                             string='Type', required=True, store=True, default='empty', change_default=True,
-                            compute='_compute_type') #rt
+                            compute='_compute_type') 
     @api.depends('attachment_id', 'url')
     def _compute_type(self):
         for record in self:
@@ -47,10 +47,10 @@ class Document(models.Model):
 
     attachment_id = fields.Many2one('ir.attachment', ondelete='cascade', auto_join=True, copy=False)
     attachment_name = fields.Char('Attachment Name', related='attachment_id.name', readonly=False)
-    datas = fields.Binary(related='attachment_id.datas', related_sudo=True, readonly=False) #rt3
+    datas = fields.Binary(related='attachment_id.datas', related_sudo=True, readonly=False)
     file_size = fields.Integer(related='attachment_id.file_size', store=True)
     checksum = fields.Char(related='attachment_id.checksum')
-    mimetype = fields.Char(related='attachment_id.mimetype', default='application/octet-stream') #rt2
+    mimetype = fields.Char(related='attachment_id.mimetype', default='application/octet-stream')
     res_model = fields.Char(related='attachment_id.res_model', store=True)
     res_id = fields.Many2oneReference(related='attachment_id.res_id', store=True)
     description = fields.Text('Attachment Description', related='attachment_id.description', readonly=False)
@@ -64,8 +64,8 @@ class Document(models.Model):
                 record.thumbnail = False
     
    
-    tag_ids = fields.Many2many('viin_document.tag', 'document_tag_rel', string="Tags") #rt
-    partner_id = fields.Many2one('res.partner', string="Contact", tracking=True) #rt
+    tag_ids = fields.Many2many('viin_document.tag', 'document_tag_rel', string="Tags") 
+    partner_id = fields.Many2one('res.partner', string="Contact", tracking=True) 
     owner_id = fields.Many2one('res.users', default=lambda self: self.env.user.id, string="Owner",
                                tracking=True)
     folder_id = fields.Many2one('viin_document.folder',

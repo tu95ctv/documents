@@ -9,7 +9,7 @@ import {
 } from "@apollo/client";
 import React from "react";
 
-const hasuraGraphqlApi = '/graphql/demo1';
+const hasuraGraphqlApi = '/graphql/viindoc';
 
 export const ApolloProviderWrapper: React.FC = ({ children }) => {
     const httpLink = new HttpLink({

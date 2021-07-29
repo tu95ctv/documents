@@ -18,7 +18,7 @@
             <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
         </record>
 
-        <!-- folder -->
+        <!-- Folder -->
         <data noupdate="1">
 
         <record id="viin_document_folder_rule_company" model="ir.rule">
@@ -50,7 +50,7 @@
             <field name="domain_force">[(1, '=', 1)]</field>
         </record>
 
-        <!-- documents  -->
+        <!-- Documents  -->
 
         <record id="viin_document_document_rule_company" model="ir.rule">
             <field name="name">viin_document.document: global</field>
@@ -68,7 +68,7 @@
                 '&amp;',
                     ('folder_id.read_group_ids', 'in', [g.id for g in user.groups_id]),
                     '|',
-                        ('folder_id.user_specific', '=', False),
+                        ('folder_id.owner_only', '=', False),
                         ('owner_id', '=', user.id)
                 ]</field>
             <field name="perm_read" eval="True"/>

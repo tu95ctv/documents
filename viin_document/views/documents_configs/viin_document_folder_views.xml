@@ -73,7 +73,7 @@
                                 </group>
                                 <group string="Read Access">
                                     <field name="read_group_ids" widget="many2many_tags"/>
-                                    <field name="user_specific" attrs="{'invisible':[('read_group_ids', '=', [])]}"/>
+                                    <field name="owner_only" attrs="{'invisible':[('read_group_ids', '=', [])]}"/>
                                 </group>
                             </group>
                         </page>
@@ -87,7 +87,7 @@
     </record>
 
     <record id="folder_action" model="ir.actions.act_window">
-      <field name="name">Workspaces</field>
+      <field name="name">Folders</field>
       <field name="res_model">viin_document.folder</field>
       <field name="view_mode">tree,form</field>
     </record>

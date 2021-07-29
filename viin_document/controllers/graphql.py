@@ -10,7 +10,7 @@ from .schema import schema
 class GraphQLController(http.Controller, GraphQLControllerMixin):
 
     # The GraphiQL route, providing an IDE for developers
-    @http.route("/graphiql/demo1", auth="user")
+    @http.route("/graphiql/viindoc", auth="user")
     def graphiql(self, **kwargs):
         return self._handle_graphiql_request(schema)
 
@@ -18,11 +18,11 @@ class GraphQLController(http.Controller, GraphQLControllerMixin):
     # requests. If you only need to accept GET requests or POST
     # with application/x-www-form-urlencoded content,
     # this is not necessary.
-    GraphQLControllerMixin.patch_for_json("^/graphql/demo1/?$")
+    GraphQLControllerMixin.patch_for_json("^/graphql/viindoc/?$")
 
     # The graphql route, for applications.
     # Note csrf=False: you may want to apply extra security
     # (such as origin restrictions) to this route.
-    @http.route("/graphql/demo1", auth="user", csrf=False)
+    @http.route("/graphql/viindoc", auth="user", csrf=False)
     def graphql(self, **kwargs):
         return self._handle_graphql_request(schema)
