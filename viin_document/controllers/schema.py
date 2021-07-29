@@ -51,7 +51,7 @@ class Document(OdooObjectType):
     owner_id = graphene.Field(User)
     partner_id = graphene.Int()
     create_date = graphene.String()
-    icon_url = graphene.String()
+    # icon_url = graphene.String()
     tags = graphene.List(
         graphene.NonNull(Tag),
         required=True,

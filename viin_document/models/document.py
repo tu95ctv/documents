@@ -4,10 +4,6 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 from odoo.tools import image_process
 
-ICON_SVGS = ['addresses','archive','audio','binary','calendar','certificate','disk','document','font','image','javascript','pdf','presentation','print','script','spreadsheet','text','unknown','vector','video','web_code','web_style']
-ICON_SVGS2 = {
-    'archive':['zip','rar']
-}
 class Document(models.Model):
     _name = 'viin_document.document'
     _description = 'Document'
@@ -15,7 +11,7 @@ class Document(models.Model):
     _order = 'id desc'
 
     _sql_constraints = [
-        ('attachment_unique', 'unique (attachment_id)', "This attachment is already a document"),
+        ('attachment_unique', 'unique (attachment_id)', 'This attachment is already a document'),
     ]
 
     name = fields.Char('Name', copy=True, store=True, compute='_compute_name', inverse='_inverse_name')
@@ -29,9 +25,9 @@ class Document(models.Model):
         for record in self:
             if record.attachment_id:
                 record.attachment_name = record.name
-    active = fields.Boolean(default=True, string="Active")
+    folder_id = fields.Many2one('viin_document.folder',string='Folder',  ondelete='restrict', tracking=True, required=True, index=True)
+    active = fields.Boolean(default=True, string='Active')
     thumbnail = fields.Binary(readonly=1, store=True, attachment=True, compute='_compute_thumbnail')
-
     url = fields.Char('URL', index=True, size=1024, tracking=True) 
     type = fields.Selection([('url', 'URL'), ('binary', 'File'), ('empty', 'Request')],
                             string='Type', required=True, store=True, default='empty', change_default=True,
@@ -62,18 +58,14 @@ class Document(models.Model):
                 record.thumbnail = image_process(record.datas, size=(80, 80), crop='center')
             except UserError:
                 record.thumbnail = False
-    
-   
-    tag_ids = fields.Many2many('viin_document.tag', 'document_tag_rel', string="Tags") 
-    partner_id = fields.Many2one('res.partner', string="Contact", tracking=True) 
-    owner_id = fields.Many2one('res.users', default=lambda self: self.env.user.id, string="Owner",
-                               tracking=True)
-    folder_id = fields.Many2one('viin_document.folder',
-                                string="Folder",
-                                ondelete="restrict",
-                                tracking=True,
-                                required=True,
-                                index=True)
+    tag_ids = fields.Many2many('viin_document.tag', 'document_tag_rel', string='Tags') 
+    partner_id = fields.Many2one('res.partner', string='Contact', tracking=True) 
+    owner_id = fields.Many2one('res.users', default=lambda self: self.env.user.id, string='Owner', tracking=True)
+                                
+                   
+                                
+                                
+                                
     
     
 
